@@ -2,9 +2,13 @@ import React, { useState } from 'react';
 import PigCard from './PigCard';
 import Filter from './Filter';
 
+import PigForm from './PigForm';
+
 function PigList({ hogs })  {
   const [isFiltered, setIsFiltered] = useState(false)
   const [sortBy, setSortBy] = useState("none")
+
+  const [hogsList, setHogsList] = useState(hogs)
 
   function handleSortByOption(event) {
     setSortBy(event.target.value)
@@ -14,7 +18,7 @@ function PigList({ hogs })  {
     setIsFiltered(!isFiltered)
   }
 
-  const filteredPigs = hogs.filter((hog) => {
+  const filteredPigs = hogsList.filter((hog) => {
     if (isFiltered === false) return true
 
     return hog.greased
@@ -72,8 +76,17 @@ function PigList({ hogs })  {
           />
   })
 
+  // function handleFormSubmit (event) {
+  //   event.preventDefault()
+  //   // console.log(event.target)
+  //   const newPig = {
+
+  //   } 
+  // }
+
   return (
     <div>
+      <PigForm hogsList={hogsList} setHogsList={setHogsList}/>
       <Filter 
         handleFilterCheckbox={handleFilterCheckbox} 
         isFiltered={isFiltered}
